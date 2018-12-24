@@ -4,6 +4,7 @@ package com.fahdisa.moshood.api;
 import com.fahdisa.moshood.entity.Book;
 import com.fahdisa.moshood.entity.Event;
 import com.fahdisa.moshood.service.BookService;
+import io.swagger.annotations.Api;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.Response;
 @Path("book")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
+@Api(value = "book", description = "Book API")
 public class BookApi {
 
 	@Inject

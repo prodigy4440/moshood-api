@@ -11,3 +11,8 @@ swarm:
         connection-url: jdbc:mysql://localhost:3306/sample_db
         user-name: root
         password: 1411opeyemi
+  deployment:
+    moshood-api.war:
+      swagger:
+        packages:
+          - com.fahdisa.moshood.api

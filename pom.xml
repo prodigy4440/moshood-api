@@ -76,5 +76,14 @@
       <groupId>io.thorntail</groupId>
       <artifactId>cdi</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.thorntail</groupId>
+      <artifactId>swagger</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.thorntail</groupId>
+      <artifactId>swagger-webapp</artifactId>
+    </dependency>
+
   </dependencies>
 </project>
