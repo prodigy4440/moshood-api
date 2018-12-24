@@ -6,8 +6,8 @@ swarm:
         xa-datasource-class-name: com.mysql.jdbc.jdbc2.optional.MysqlXADataSource
         driver-module-name: com.mysql
     data-sources:
-      ExampleDS:
+      MoshoodDS:
         driver-name: com.mysql
         connection-url: jdbc:mysql://localhost:3306/sample_db
         user-name: root
-        password: root
+        password: 1411opeyemi
