@@ -52,10 +52,12 @@
     <dependency>
       <groupId>io.thorntail</groupId>
       <artifactId>jaxrs</artifactId>
-    </dependency><dependency>
+    </dependency>
+    <dependency>
       <groupId>io.thorntail</groupId>
       <artifactId>jaxrs-multipart</artifactId>
-    </dependency><dependency>
+    </dependency>
+    <dependency>
       <groupId>io.thorntail</groupId>
       <artifactId>datasources</artifactId>
     </dependency>
