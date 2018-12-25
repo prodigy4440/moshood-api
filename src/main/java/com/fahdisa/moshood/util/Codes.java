@@ -11,5 +11,7 @@ public class Codes {
     public static final Integer OPERATION_NOT_PERMITTED =12;
     public static final Integer INVALID_OPERATION =13;
     public static final Integer CONNECTION_ERROR = 14;
+    public static final Integer NOT_FOUND_ERROR = 15;
+    public static final Integer GENERIC_ERROR = 16;
 
 }
