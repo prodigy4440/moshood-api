@@ -4,6 +4,7 @@ import com.fahdisa.moshood.util.BaseResponse;
 import com.fahdisa.moshood.util.Codes;
 
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -17,6 +18,8 @@ public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundExceptio
                         .setCode(Codes.NOT_FOUND_ERROR)
                         .setDescription(e.getMessage())
                         .build()
-                ).build();
+                )
+                .type(MediaType.APPLICATION_JSON)
+                .build();
     }
 }

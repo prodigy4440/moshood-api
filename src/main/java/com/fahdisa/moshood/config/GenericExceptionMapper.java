@@ -4,6 +4,7 @@ import com.fahdisa.moshood.util.BaseResponse;
 import com.fahdisa.moshood.util.Codes;
 
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -17,6 +18,7 @@ public class GenericExceptionMapper implements ExceptionMapper<WebApplicationExc
                         .setCode(Codes.GENERIC_ERROR)
                         .setDescription(e.getMessage())
                         .build()
-                ).build();
+                )                .type(MediaType.APPLICATION_JSON)
+                .build();
     }
 }
