@@ -1,6 +1,7 @@
 package com.fahdisa.moshood.api;
 
 import com.fahdisa.moshood.entity.Article;
+import com.fahdisa.moshood.entity.Comment;
 import com.fahdisa.moshood.entity.Event;
 import com.fahdisa.moshood.entity.Section;
 import com.fahdisa.moshood.service.ArticleService;
@@ -61,5 +62,20 @@ public class ArticleApi {
     @DELETE
     public Response removeSection(@PathParam("id")Long id){
         return Response.ok(articleService.removeSection(id)).build();
+    }
+
+    @Path("comment/{id}")
+    @POST
+    public Response createReview(@PathParam("id")Long id, Comment comment){
+        return Response.ok(articleService.createComment(id, comment)).build();
+    }
+
+    @Path("comments/{id}")
+    @GET
+    public Response getReviews(@PathParam("id")Long articleId,
+                               @QueryParam("book")Long lastArticleId,
+                               @QueryParam("page")Integer page,
+                               @QueryParam("size")Integer size){
+        return Response.ok(articleService.getComments(articleId, lastArticleId, page, size)).build();
     }
 }
