@@ -1,7 +1,6 @@
 package com.fahdisa.moshood.service;
 
-import com.fahdisa.moshood.entity.Article;
-import com.fahdisa.moshood.entity.Section;
+import com.fahdisa.moshood.entity.*;
 import com.fahdisa.moshood.util.BaseResponse;
 import com.fahdisa.moshood.util.Codes;
 import com.fahdisa.moshood.util.Page;
@@ -181,6 +180,70 @@ public class ArticleService {
                     .setDescription("Success")
                     .setData(articles)
                     .build();
+        }
+    }
+
+    public BaseResponse createComment(Long articleId, Comment comment){
+        if(Objects.isNull(articleId) || Objects.isNull(comment)){
+            return new BaseResponse.Builder<>()
+                    .setCode(Codes.INVALID_INPUT)
+                    .setDescription("Invalid review")
+                    .build();
+        }else{
+            Article article = entityManager.find(Article.class, articleId);
+            if(Objects.isNull(article)){
+                return new BaseResponse.Builder<>()
+                        .setCode(Codes.NO_RECORD)
+                        .setDescription("Article not found")
+                        .build();
+            }else{
+                comment.setArticle(articleId);
+                entityManager.persist(comment);
+                return new BaseResponse.Builder<>()
+                        .setCode(Codes.SUCCESS)
+                        .setDescription("Success")
+                        .setData(comment)
+                        .build();
+            }
+        }
+    }
+
+    public BaseResponse getComments(Long articleId, Long lastId, Integer page, Integer size){
+        if(Objects.isNull(articleId)){
+            return new BaseResponse.Builder<>()
+                    .setCode(Codes.INVALID_INPUT)
+                    .setDescription("Invalid Article")
+                    .build();
+        }else{
+            if(Objects.isNull(lastId) || (lastId < 1)){
+                lastId = Page.DEFAULT_LAST_ID;
+            }
+
+            if(Objects.isNull(page) || (page < 0)){
+                page = Page.DEFAULT_PAGE;
+            }
+
+            if(Objects.isNull(size) || (size < 1)){
+                size = Page.DEFAULT_SIZE;
+            }
+
+            List<Comment> comments = entityManager
+                    .createQuery("SELECT c FROM Comment c WHERE c.article = :article AND c.id < :id ORDER BY c.id DESC",
+                            Comment.class).setParameter("article", articleId)
+                    .setParameter("id", lastId).setFirstResult(page * size)
+                    .setMaxResults(size).getResultList();
+            if(comments.isEmpty()){
+                return new BaseResponse.Builder<>()
+                        .setCode(Codes.NO_RECORD)
+                        .setDescription("No Comment found")
+                        .build();
+            }else{
+                return new BaseResponse.Builder<>()
+                        .setCode(Codes.SUCCESS)
+                        .setDescription("Success")
+                        .setData(comments)
+                        .build();
+            }
         }
     }
 
