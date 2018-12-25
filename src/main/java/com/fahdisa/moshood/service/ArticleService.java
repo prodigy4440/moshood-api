@@ -18,13 +18,13 @@ public class ArticleService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public BaseResponse createArticle(Article article){
-        if(Objects.isNull(article)){
+    public BaseResponse createArticle(Article article) {
+        if (Objects.isNull(article)) {
             return new BaseResponse.Builder<>()
                     .setCode(Codes.INVALID_INPUT)
                     .setDescription("Invalid article")
                     .build();
-        }else{
+        } else {
             entityManager.persist(article);
             return new BaseResponse.Builder<>()
                     .setCode(Codes.SUCCESS)
@@ -34,13 +34,13 @@ public class ArticleService {
         }
     }
 
-    public BaseResponse updateArticle(Article article){
-        if(Objects.isNull(article) || Objects.isNull(article.getId())){
+    public BaseResponse updateArticle(Article article) {
+        if (Objects.isNull(article) || Objects.isNull(article.getId())) {
             return new BaseResponse.Builder<>()
                     .setCode(Codes.INVALID_INPUT)
                     .setDescription("Invalid Article")
                     .build();
-        }else{
+        } else {
             entityManager.merge(article);
             return new BaseResponse.Builder<>()
                     .setCode(Codes.SUCCESS)
@@ -50,26 +50,26 @@ public class ArticleService {
         }
     }
 
-    public BaseResponse createSection(Long articleId, Section section){
-        if(Objects.isNull(articleId)){
+    public BaseResponse createSection(Long articleId, Section section) {
+        if (Objects.isNull(articleId)) {
             return new BaseResponse.Builder<>()
                     .setCode(Codes.INVALID_INPUT)
                     .setDescription("Invalid article id")
                     .build();
-        }else{
-            if(Objects.isNull(section)){
+        } else {
+            if (Objects.isNull(section)) {
                 return new BaseResponse.Builder<>()
                         .setCode(Codes.INVALID_INPUT)
                         .setDescription("Invalid section")
                         .build();
-            }else{
+            } else {
                 Article article = entityManager.find(Article.class, articleId);
-                if(Objects.isNull(article)){
+                if (Objects.isNull(article)) {
                     return new BaseResponse.Builder<>()
                             .setCode(Codes.NO_RECORD)
                             .setDescription("Article not found")
                             .build();
-                }else{
+                } else {
                     article.getSections().add(section);
                     Article merge = entityManager.merge(article);
                     return new BaseResponse.Builder<>()
@@ -82,20 +82,20 @@ public class ArticleService {
         }
     }
 
-    public BaseResponse removeSection(Long sectionId){
-        if(Objects.isNull(sectionId)){
+    public BaseResponse removeSection(Long sectionId) {
+        if (Objects.isNull(sectionId)) {
             return new BaseResponse.Builder<>()
                     .setCode(Codes.INVALID_INPUT)
                     .setDescription("Invalid section")
                     .build();
-        }else{
+        } else {
             Section section = entityManager.find(Section.class, sectionId);
-            if(Objects.isNull(section)){
+            if (Objects.isNull(section)) {
                 return new BaseResponse.Builder<>()
                         .setCode(Codes.NO_RECORD)
                         .setDescription("Section not found")
                         .build();
-            }else{
+            } else {
                 entityManager.remove(section);
                 return new BaseResponse.Builder<>()
                         .setCode(Codes.SUCCESS)
@@ -105,20 +105,20 @@ public class ArticleService {
         }
     }
 
-    public BaseResponse removeArticle(Long articleId){
-        if(Objects.isNull(articleId)){
+    public BaseResponse removeArticle(Long articleId) {
+        if (Objects.isNull(articleId)) {
             return new BaseResponse.Builder<>()
                     .setCode(Codes.INVALID_INPUT)
                     .setDescription("Invalid article")
                     .build();
-        }else{
+        } else {
             Article article = entityManager.find(Article.class, articleId);
-            if(Objects.isNull(article)){
+            if (Objects.isNull(article)) {
                 return new BaseResponse.Builder<>()
                         .setCode(Codes.NO_RECORD)
                         .setDescription("Article not found")
                         .build();
-            }else{
+            } else {
                 entityManager.remove(article);
                 return new BaseResponse.Builder<>()
                         .setCode(Codes.SUCCESS)
@@ -128,21 +128,20 @@ public class ArticleService {
         }
     }
 
-
-    public BaseResponse getArticle(Long articleId){
-        if(Objects.isNull(articleId)){
+    public BaseResponse getArticle(Long articleId) {
+        if (Objects.isNull(articleId)) {
             return new BaseResponse.Builder<>()
                     .setCode(Codes.INVALID_INPUT)
                     .setDescription("Invalid article")
                     .build();
-        }else{
+        } else {
             Article article = entityManager.find(Article.class, articleId);
-            if(Objects.isNull(article)){
+            if (Objects.isNull(article)) {
                 return new BaseResponse.Builder<>()
                         .setCode(Codes.NO_RECORD)
                         .setDescription("Article not found")
                         .build();
-            }else{
+            } else {
                 return new BaseResponse.Builder<>()
                         .setCode(Codes.SUCCESS)
                         .setDescription("Success")
@@ -152,16 +151,16 @@ public class ArticleService {
         }
     }
 
-    public BaseResponse getArticles(Long lastId, Integer page, Integer size){
-        if(Objects.isNull(lastId)){
+    public BaseResponse getArticles(Long lastId, Integer page, Integer size) {
+        if (Objects.isNull(lastId)) {
             lastId = Page.DEFAULT_LAST_ID;
         }
 
-        if(Objects.isNull(page)){
+        if (Objects.isNull(page)) {
             page = Page.DEFAULT_PAGE;
         }
 
-        if(Objects.isNull(size)){
+        if (Objects.isNull(size)) {
             size = Page.DEFAULT_SIZE;
         }
 
@@ -171,12 +170,12 @@ public class ArticleService {
                 .setFirstResult(page * size).setMaxResults(size)
                 .getResultList();
 
-        if(articles.isEmpty()){
+        if (articles.isEmpty()) {
             return new BaseResponse.Builder<>()
                     .setCode(Codes.NO_RECORD)
                     .setDescription("No article found")
                     .build();
-        }else{
+        } else {
             return new BaseResponse.Builder<>()
                     .setCode(Codes.SUCCESS)
                     .setDescription("Success")
@@ -184,6 +183,5 @@ public class ArticleService {
                     .build();
         }
     }
-
 
 }
