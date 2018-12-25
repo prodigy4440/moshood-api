@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 @Path("article")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
-@Api(value = "article", description = "Article API")
+@Api(value = "Article", description = "Article API")
 public class ArticleApi {
 
     @Path("{id}")

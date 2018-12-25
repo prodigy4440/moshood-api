@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 @Path("book")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
-@Api(value = "book", description = "Book API")
+@Api(value = "Book", description = "Book API")
 public class BookApi {
 
 	@Inject

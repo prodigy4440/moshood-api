@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 @Path("event")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
-@Api(value = "event", description = "Event API")
+@Api(value = "Event", description = "Event API")
 public class EventApi {
 
     @Path("{id}")
