@@ -15,6 +15,7 @@ public class Book implements Serializable {
 
     @Id
     @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "title")
@@ -29,7 +30,7 @@ public class Book implements Serializable {
     private String longDescription;
 
     @Column(name = "authors")
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> authors;
 
     @Column(name = "language")
@@ -50,7 +51,6 @@ public class Book implements Serializable {
     @Column(name = "price")
     private Integer price;
 
-    @Size(min = 0, max = 100)
     @Column(name = "discount")
     private Integer discount;
 

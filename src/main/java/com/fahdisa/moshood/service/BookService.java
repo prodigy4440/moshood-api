@@ -7,13 +7,14 @@ import com.fahdisa.moshood.util.Codes;
 import com.fahdisa.moshood.util.Page;
 import com.sun.tools.javac.jvm.Code;
 
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Objects;
 
-@RequestScoped
+@Stateless
 public class BookService {
 
     @PersistenceContext
@@ -26,6 +27,7 @@ public class BookService {
                     .setDescription("Invalid book")
                     .build();
         } else {
+            book.setId(null);
             entityManager.persist(book);
             return new BaseResponse.Builder<>()
                     .setCode(Codes.SUCCESS)
@@ -76,11 +78,18 @@ public class BookService {
                     .build();
         } else {
             Book book = entityManager.find(Book.class, id);
-            return new BaseResponse.Builder<>()
-                    .setCode(Codes.INVALID_INPUT)
-                    .setDescription("Success")
-                    .setData(book)
-                    .build();
+            if (Objects.isNull(book)) {
+                return new BaseResponse.Builder<>()
+                        .setCode(Codes.NO_RECORD)
+                        .setDescription("Book not found")
+                        .build();
+            }else {
+                return new BaseResponse.Builder<>()
+                        .setCode(Codes.SUCCESS)
+                        .setDescription("Success")
+                        .setData(book)
+                        .build();
+            }
         }
     }
 

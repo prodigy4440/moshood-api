@@ -15,6 +15,7 @@ public class Event implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "title")
@@ -40,7 +41,7 @@ public class Event implements Serializable {
     private String url;
 
     @JsonManagedReference
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name="event_guest", joinColumns = {
             @JoinColumn(name="event_id", referencedColumnName="id")
     }, inverseJoinColumns = {

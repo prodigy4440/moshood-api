@@ -5,13 +5,14 @@ import com.fahdisa.moshood.util.BaseResponse;
 import com.fahdisa.moshood.util.Codes;
 import com.fahdisa.moshood.util.Page;
 
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Objects;
 
-@RequestScoped
+@Stateless
 public class ArticleService {
 
     @PersistenceContext
@@ -24,6 +25,7 @@ public class ArticleService {
                     .setDescription("Invalid article")
                     .build();
         } else {
+            article.setId(null);
             entityManager.persist(article);
             return new BaseResponse.Builder<>()
                     .setCode(Codes.SUCCESS)
@@ -62,6 +64,7 @@ public class ArticleService {
                         .setDescription("Invalid section")
                         .build();
             } else {
+                section.setId(null);
                 Article article = entityManager.find(Article.class, articleId);
                 if (Objects.isNull(article)) {
                     return new BaseResponse.Builder<>()
@@ -197,6 +200,7 @@ public class ArticleService {
                         .setDescription("Article not found")
                         .build();
             }else{
+                comment.setId(null);
                 comment.setArticle(articleId);
                 entityManager.persist(comment);
                 return new BaseResponse.Builder<>()

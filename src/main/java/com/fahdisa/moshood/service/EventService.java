@@ -6,13 +6,14 @@ import com.fahdisa.moshood.util.BaseResponse;
 import com.fahdisa.moshood.util.Codes;
 import com.fahdisa.moshood.util.Page;
 
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Objects;
 
-@RequestScoped
+@Stateless
 public class EventService {
 
     @PersistenceContext
@@ -29,10 +30,11 @@ public class EventService {
             List<Guest> guests = event.getGuests();
             if (Objects.nonNull(guests) && (!guests.isEmpty())) {
                 for (Guest guest : guests) {
+                    guest.setId(null);
                     guest.setEvent(event);
                 }
             }
-
+event.setId(null);
             entityManager.persist(event);
             return new BaseResponse.Builder<>()
                     .setCode(Codes.SUCCESS)
